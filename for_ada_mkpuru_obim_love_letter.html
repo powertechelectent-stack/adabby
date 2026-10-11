@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For Ada · Mkpuru obim 💕</title>
+<style>
+  :root { --pink:#ff4f87; --deep:#6d173f; --cream:#fff6fa; }
+  * { box-sizing:border-box; }
+  body {
+    margin:0; min-height:100vh; font-family: Georgia, 'Times New Roman', serif;
+    color:#54213b; background: radial-gradient(circle at top, #ffe3ef, #fff7fb 58%, #ffd4e5);
+    display:flex; align-items:center; justify-content:center; padding:22px; overflow-x:hidden;
+  }
+  .hearts { position:fixed; inset:0; pointer-events:none; overflow:hidden; }
+  .heart { position:absolute; bottom:-30px; color:#ff6e9f; opacity:.55; animation:float 9s linear infinite; }
+  @keyframes float { to { transform:translateY(-115vh) rotate(25deg); opacity:0; } }
+  .book { width:min(100%, 520px); position:relative; }
+  .card {
+    background:rgba(255,255,255,.88); border:1px solid #ffd0e0; border-radius:28px;
+    box-shadow:0 18px 55px rgba(139,35,81,.16); padding:34px 25px 26px; text-align:center;
+    min-height:470px; display:flex; flex-direction:column; justify-content:center; position:relative;
+  }
+  .eyebrow { text-transform:uppercase; letter-spacing:3px; font: bold 11px Arial,sans-serif; color:#d34d82; }
+  .emoji { font-size:55px; margin:16px 0 8px; }
+  h1 { font-size:clamp(30px, 8vw, 43px); line-height:1.12; margin:8px 0 18px; color:var(--deep); }
+  p { font-size:18px; line-height:1.72; margin:8px 0; }
+  .signature { font-size:23px; color:#d73578; margin-top:22px; font-style:italic; }
+  .controls { display:flex; gap:12px; justify-content:center; margin-top:18px; }
+  button {
+    border:0; border-radius:999px; padding:13px 21px; font-size:15px; font-weight:bold;
+    cursor:pointer; background:var(--pink); color:white; box-shadow:0 7px 18px #ff4f873d;
+  }
+  button:disabled { opacity:.35; cursor:default; }
+  .secondary { background:white; color:#b52b66; border:1px solid #ffc1d7; box-shadow:none; }
+  .progress { display:flex; gap:6px; justify-content:center; margin:16px 0 0; }
+  .dot { width:7px; height:7px; background:#f5b4cc; border-radius:50%; }
+  .dot.active { background:#d73578; transform:scale(1.3); }
+  .tiny { font:12px Arial,sans-serif; color:#b15b7f; margin-top:18px; }
+  .last { font-size:27px; font-weight:bold; color:#c92f70; }
+</style>
+</head>
+<body>
+<div class="hearts" id="hearts"></div>
+<main class="book">
+  <section class="card" aria-live="polite">
+    <div class="eyebrow" id="eyebrow">A little message for you</div>
+    <div class="emoji" id="emoji">💌</div>
+    <h1 id="title">Hey, Ada, Mkpuru obim 💕</h1>
+    <p id="message">I made something small for you, but it carries a feeling that is bigger than words. Take my hand and turn the pages. 💕</p>
+    <div class="signature" id="signature"></div>
+    <div class="tiny" id="hint">Made with love, just for you.</div>
+  </section>
+  <div class="progress" id="progress"></div>
+  <div class="controls">
+    <button class="secondary" id="back" disabled>← Back</button>
+    <button id="next">Open my heart →</button>
+  </div>
+</main>
+<script>
+const pages = [
+  {eyebrow:"A little world made for you",emoji:"💌",title:"Ada, My Mkpuru obim 💕",message:"My Ada, my Mkpuru obim, if I could gather every beautiful word in the world and place them in your hands, I still don't think they would be enough to explain what you mean to me. So I made these pages instead — little pieces of my heart, waiting for you to open them one by one. Take your time, sweetheart. Imagine me beside you, smiling as you read. ❤️",signature:"This little world is yours, my love. 💋",hint:"Turn the page, baby… this is just the beginning."},
+  {eyebrow:"Page 1 · The way you affect me",emoji:"🥹❤️",title:"You Have a Place in My Heart",message:"Ada, there is something about you that stays with me long after our conversation ends. Sometimes it's your smile, sometimes it's the way you speak, and sometimes it's simply the thought of you that appears out of nowhere and makes me smile like a fool. You have become one of my favourite thoughts, one of my sweetest reasons to feel happy, and someone I genuinely want to keep close. Mkpuru obim, you are not just somebody I talk to — you are somebody I feel.",signature:"You touch my heart without even trying. 💗",hint:"And there's something else I want you to know…"},
+  {eyebrow:"Page 2 · If you were beside me",emoji:"🫂",title:"I Wish I Could Hold You",message:"If you were beside me right now, I would gently pull you close and let you rest against me. I'd wrap my arms around you, brush your hair softly away from your face, look into your eyes, and remind you how beautiful you are to me. I would hold you long enough for the noise of the world to disappear. No rushing, no distractions — just you and me, a quiet moment, and the comfort of being close to someone we care about. I wish this screen could carry my hug to you, Ada.",signature:"Until I can hold you for real, imagine my arms around you. ❤️",hint:"Keep reading, my sweet girl…"},
+  {eyebrow:"Page 3 · The little things",emoji:"😘",title:"I Want More Than a Chat",message:"I want your sleepy good-morning voice, your random stories, your laughter when something silly happens, and the little details about your day that you might think nobody needs to hear. I want to learn what makes you laugh until your cheeks hurt, what comforts you when you feel low, what dreams you keep quietly in your heart, and what makes you feel truly appreciated. I want the ordinary moments with you — because with the right person, even an ordinary day can become a beautiful memory. Ada, I want to know the real you, not just the version the world gets to see.",signature:"Every little part of you is worth knowing, Mkpuru obim. 💕",hint:"Now let me tell you what I miss…"},
+  {eyebrow:"Page 4 · When I miss you",emoji:"💭💞",title:"You Visit My Thoughts",message:"Sometimes I catch myself reaching for my phone because I want to hear from you. Sometimes a song, a place, or a random little thing reminds me of you, and suddenly I wish you were there to share it with me. I wonder what you are doing, whether you have smiled today, and whether someone has reminded you how precious you are. I wish I could steal a little moment from your busy day, hold your hand, kiss your forehead, and tell you that someone out here is thinking of you with a very full heart.",signature:"That someone is me, Ada. Always happy to hear from you. 💋",hint:"The next page is a little closer to my heart…"},
+  {eyebrow:"Page 5 · My favourite kind of closeness",emoji:"🌹",title:"Come a Little Closer",message:"There is a kind of closeness I dream about with you — the kind where we sit close enough that our shoulders touch, where I can hold your hand and feel you squeeze it back, where our eyes meet and we both smile without needing to explain why. I imagine leaning closer, asking if I can kiss you, and sharing a soft, unhurried kiss that says what words sometimes cannot. Then I would rest my forehead against yours and smile, happy that for that moment, we are right where we want to be. I want tenderness with you, Ada: the kind that makes your heart race while still making you feel safe, cherished, and completely respected.",signature:"If you were here, I'd ask for one more kiss. Then maybe one more. 😘❤️",hint:"There's no rush, sweetheart. Turn the page when you're ready."},
+  {eyebrow:"Page 6 · The way I'd treat you",emoji:"🩷",title:"You Deserve to Feel Wanted",message:"I want you to feel wanted without ever feeling pressured, beautiful without having to prove it, and loved without having to beg for attention. I want my words to make you blush, my presence to bring you peace, and my actions to give you reasons to trust me. I want to compliment you when you least expect it, notice the little things you do, listen when something is weighing on your heart, and celebrate the woman you are becoming. Your comfort matters to me. Your boundaries matter to me. And your smile is something I'd always want to protect, never something I'd want to take for granted.",signature:"You deserve affection that feels gentle, honest, and real. 💗",hint:"One more thing, my love…"},
+  {eyebrow:"Page 7 · What I hope for us",emoji:"🔐",title:"I Want to Build Something Real",message:"I don't want to be sweet only when I'm trying to impress you. I want to be thoughtful on regular days, patient when life gets complicated, honest when we need to talk, and willing to understand you even when we see things differently. I want us to build trust slowly and beautifully, with laughter, effort, affection, and respect. I can't promise that every day will be perfect, but I can promise that what I offer you should be more than fine words on a screen. I want you to see my love in the way I show up for you.",signature:"Not just a moment of romance — a love we keep choosing. ❤️",hint:"My Mkpuru obim, read the last page slowly…"},
+  {eyebrow:"Page 8 · Just for my Ada",emoji:"💋❤️",title:"If I Could Whisper to You",message:"I'd come close enough for you to hear my voice soften and tell you, 'Ada, you have no idea how beautiful you are to me.' I'd look at you with all the affection I've been trying to fit into these messages, hold your hand gently, and ask for a kiss if you wanted one. I'd want you to feel the warmth in my eyes, the sincerity in my words, and the care behind every little gesture. And after that, I'd simply keep you close for a while, because sometimes the best thing isn't a grand speech — it's being beside the person who makes your heart feel full. My sweet girl, I want to make beautiful memories with you, one tender moment at a time.",signature:"You make romance feel personal, Ada. My Mkpuru obim. 💕",hint:"There's one final message waiting for you…"},
+  {eyebrow:"My heart, without a code",emoji:"♾️💖",title:"I Love You, Ada",message:"My Ada, my Mkpuru obim, thank you for being the person you are. I hope these pages made you smile, blush a little, and feel how deeply I want to know you and care for you. I want your laughter in my days, your hand in mine, your trust in my heart, and the chance to keep showing you that you matter to me. If I could end this letter with one thing, it would be this: you are wanted, you are appreciated, and you are so very special to me. When you miss me, come back and read this again — and imagine me telling you every word in person, with a smile and a gentle kiss on your forehead.",signature:"I love you, Ada — Mkpuru obim. Today, tomorrow, and with intention. 💋💕",hint:"Made with all my affection, just for you."}
+]
+let index = 0;
+const $ = id => document.getElementById(id);
+function render() {
+  const p = pages[index];
+  ["eyebrow","emoji","title","message","signature","hint"].forEach(k => $(k).textContent = p[k]);
+  $("back").disabled = index === 0;
+  $("next").textContent = index === pages.length-1 ? "Read again ❤️" : "Next page →";
+  $("progress").innerHTML = pages.map((_,i)=>`<span class="dot ${i===index?'active':''}"></span>`).join("");
+}
+$("back").addEventListener("click",()=>{ if(index>0){index--;render();}});
+$("next").addEventListener("click",()=>{ index = index===pages.length-1 ? 0 : index+1; render(); });
+for(let i=0;i<18;i++){
+  const h=document.createElement("span"); h.className="heart"; h.textContent=["♥","♡","💗"][i%3];
+  h.style.left=(Math.random()*100)+"%"; h.style.animationDelay=(Math.random()*8)+"s";
+  h.style.animationDuration=(7+Math.random()*7)+"s"; h.style.fontSize=(14+Math.random()*20)+"px";
+  $("hearts").appendChild(h);
+}
+render();
+</script>
+</body>
+</html>
